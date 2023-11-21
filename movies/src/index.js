@@ -38,8 +38,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route exact path="/mustWatch" component={MustWatchMoviesPage} />
-            <Route path='/latest' component={LatestMoviesPage} />
-
+            <Route path="/movies/latest" element={<LatestMoviesPage />} /> 
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>

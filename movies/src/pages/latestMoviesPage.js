@@ -15,7 +15,7 @@ const LatestMoviesPage = () => {
     if (isError) {
         return <h1>{`Error: ${error.message}`}</h1>;
     }
-
+    // ensure thst movies is an array which has been defined.
     const movies = data.results; 
     const mustWatch = movies.filter(m => m.mustWatch);
 
