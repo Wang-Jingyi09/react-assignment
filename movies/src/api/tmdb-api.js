@@ -8,7 +8,7 @@ export const getMovies = () => {
     return response.json();
   })
     .catch((error) => {
-      throw error
+      throw error;
     });
 };
 
@@ -25,7 +25,7 @@ export const getMovie = (args) => {
     return response.json();
   })
     .catch((error) => {
-      throw error
+      throw error;
     });
 };
 
@@ -41,7 +41,7 @@ export const getGenres = async () => {
     return response.json();
   })
     .catch((error) => {
-      throw error
+      throw error;
     });
 };
 
@@ -58,7 +58,7 @@ export const getMovieImages = ({ queryKey }) => {
 
   })
     .catch((error) => {
-      throw error
+      throw error;
     });
 };
 export const getUpcomingMovies = () => {
@@ -84,5 +84,19 @@ export const getMovieReviews = (id) => {
     .then((json) => {
       // console.log(json.results);
       return json.results;
+    });
+};
+//getLatestMovies
+export const getLatestMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/latest?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  })
+    .catch((error) => {
+      throw error;
     });
 };
