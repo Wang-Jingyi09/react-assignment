@@ -88,8 +88,10 @@ export const getMovieReviews = (id) => {
 };
 //getLatestMovies
 export const getLatestMovies = () => {
+  const currentDate = new Date().toISOString().split('T')[0];
   return fetch(
-    `https://api.themoviedb.org/3/movie/latest?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
+    //Acquire multiple latest movies' list (/discover/movie)
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&sort_by=release_date.desc&release_date.lte=${currentDate}&page=1`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
