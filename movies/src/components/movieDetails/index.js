@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -9,6 +9,7 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
+import { getMovieCredits } from '../../api/tmdb-api';
 
 const root = {
   display: "flex",
@@ -22,6 +23,14 @@ const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [credits, setCredits] = useState(null);
+
+  useEffect(() => {
+    getMovieCredits(movie.id).then(data => {
+      setCredits(data);
+    });
+
+  }, [movie.id]);
 
   return (
     <>
@@ -72,23 +81,45 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         ))}
       </Paper>
 
-      <Fab
-        color="secondary"
-        variant="extended"
-        onClick={() => setDrawerOpen(true)}
-        sx={{
-          position: 'fixed',
-          bottom: '1em',
-          right: '1em'
-        }}
-      >
-        <NavigationIcon />
-        Reviews
-      </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <MovieReviews movie={movie} />
-      </Drawer>
-    </>
-  );
+      {/* create */}
+      {credits && (
+        <>
+          <Typography variant="h5" component="h2">
+            Cast
+          </Typography>
+          <ul>
+            {credits.cast.map(member => (
+              <li key={member.cast_id}>{member.name} as {member.character}</li>
+            ))}
+          </ul>
+          {/* <Typography variant="h5" component="h2">
+            Crew
+          </Typography>
+          <ul>
+            {credits.crew.map(member => (
+              <li key={member.credit_id}>{member.name} - {member.job}</li>
+            ))}
+          </ul> */}
+        </>
+      )}
+
+          <Fab
+            color="secondary"
+            variant="extended"
+            onClick={() => setDrawerOpen(true)}
+            sx={{
+              position: 'fixed',
+              bottom: '1em',
+              right: '1em'
+            }}
+          >
+            <NavigationIcon />
+            Reviews
+          </Fab>
+          <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+            <MovieReviews movie={movie} />
+          </Drawer>
+        </>
+      );
 };
-export default MovieDetails;
+      export default MovieDetails;

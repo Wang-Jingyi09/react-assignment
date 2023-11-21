@@ -86,12 +86,26 @@ export const getMovieReviews = (id) => {
       return json.results;
     });
 };
-//getLatestMovies
+//The first endpoint updated: getLatestMovies
 export const getLatestMovies = () => {
   const currentDate = new Date().toISOString().split('T')[0];
   return fetch(
     //Acquire multiple latest movies' list (/discover/movie)
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&sort_by=release_date.desc&release_date.lte=${currentDate}&page=1`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&sort_by=release_date.desc&release_date.lte=${currentDate}&page=3`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  })
+    .catch((error) => {
+      throw error;
+    });
+};
+//The second endpoint
+export const getMovieCredits = (id) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
