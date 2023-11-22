@@ -5,7 +5,7 @@
 
 1.  Define an API call function of a new static endpoint /lastest in tmdb-api.js
 
-1.  A new static endpoint /latest added.
+1.  A new static endpoint /latest added. (It has been modified as /discover/movie endpoint.)
 
 1.  Create a new React page component to use API calls.
 
@@ -27,6 +27,11 @@
 1. use 'useParams' hook from Router to access the dynamic parameter id.
 
 1. Fetch data of movie cast message through API calling with 'useQuery' hook form React Query.
+
+
+## add a static endpoint /movie/popular
+ 
+ 1. 
 
 
 

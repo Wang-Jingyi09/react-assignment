@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
-import React from "react";
+import React, { useState } from "react";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
@@ -23,32 +23,9 @@ const formControl =
 
 export default function FilterMoviesCard(props) {
 
-  // const genres = [
-  //   {id: 1, name: "Animation"},
-  //   {id: 2, name: "Comedy"},
-  //   {id: 3, name: "Thriller"}
-  // ]
-  // const [genres, setGenres] = useState([{ id: '0', name: "All" }])
-
-  // useEffect(() => {
-  //   getGenres().then((allGenres) => {
-  //     setGenres([genres[0], ...allGenres]);
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
-  // const handleChange = (e, type, value) => {
-  //   e.preventDefault()
-  //   // Completed later
-  //   props.onUserInput(type, value)   // NEW
-  // };
-  // const handleTextChange = e => {
-  //   handleChange(e, "name", e.target.value)
-  // }
-  // const handleGenreChange = e => {
-  //   handleChange(e, "genre", e.target.value)
-  // };
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  const [releaseYear, setReleaseYear] = useState('');
+  const [selectedRating, setSelectedRating] = useState('');
 
   if (isLoading) {
     return <Spinner />;
@@ -58,7 +35,7 @@ export default function FilterMoviesCard(props) {
     return <h1>{error.message}</h1>;
   }
   const genres = data.genres;
-  if (genres[0].name !== "All"){
+  if (genres[0].name !== "All") {
     genres.unshift({ id: "0", name: "All" });
   }
 
@@ -67,13 +44,30 @@ export default function FilterMoviesCard(props) {
     props.onUserInput(type, value); // NEW
   };
 
-  const handleTextChange = (e, props) => {
+  const handleTextChange = (e) => {
     handleChange(e, "name", e.target.value);
   };
 
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
+
+  const handleYearChange = (e) => {
+    const yearValue = e.target.value;
+    // setReleaseYear(e.target.value);
+    if (yearValue >= 1980 && yearValue <= 2023) {
+      setReleaseYear(yearValue);
+      props.onUserInput("year", yearValue);
+    }
+    handleChange(e, "year", e.target.value);
+  };
+
+  const handleRatingChange = (e) => {
+    setSelectedRating(e.target.value);
+    handleChange(e, "rating", e.target.value);
+  };
+
+
 
   return (
     <Card
@@ -96,6 +90,28 @@ export default function FilterMoviesCard(props) {
           value={props.titleFilter}
           onChange={handleTextChange}
         />
+
+
+        <TextField
+          sx={{ ...formControl }}
+          id="year-search"
+          label="Search Year"
+          type="number"
+          variant="filled"
+          value={releaseYear}
+          onChange={handleYearChange}
+          inputProps={{ min: 1980, max: 2023 }}
+        />
+        {/* <TextField
+          sx={{ ...formControl }}
+          id="rating-search"
+          label="Search Rating"
+          type="number"
+          variant="filled"
+          value={selectedRating}
+          onChange={handleRatingChange}
+        /> */}
+
         <FormControl sx={{ ...formControl }}>
           <InputLabel id="genre-label">Genre</InputLabel>
           <Select
@@ -112,6 +128,21 @@ export default function FilterMoviesCard(props) {
                 </MenuItem>
               );
             })}
+          </Select>
+        </FormControl>
+
+        <FormControl>
+          <InputLabel id="rating-select-label">Rating</InputLabel>
+          <Select
+            labelId="rating-select-label"
+            id="rating-search"
+            value={selectedRating}
+            onChange={handleRatingChange}
+          >
+            <MenuItem value="9+">9 and above</MenuItem>
+            <MenuItem value="8-9">8 - 9</MenuItem>
+            <MenuItem value="7-8">7 - 8</MenuItem>
+            <MenuItem value="<7">Below 7</MenuItem>
           </Select>
         </FormControl>
       </CardContent>

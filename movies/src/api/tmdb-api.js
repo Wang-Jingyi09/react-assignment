@@ -1,12 +1,28 @@
-export const getMovies = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(response.json().message);
+export const getMovies = (year, rating) => {
+  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`;
+
+  if (year) {
+    url += `&primary_release_year=${year}`; 
+  }
+  
+  if (rating) {
+    if (rating === '9+') {
+      url += `&vote_average.gte=9`;
+    } else if (rating === '8-9') {
+      url += `&vote_average.gte=8&vote_average.lt=9`;
+    } else if (rating === '7-8') {
+      url += `&vote_average.gte=7&vote_average.lt=8`;
+    } else if (rating === '<7') {
+      url += `&vote_average.lt=7`;
     }
-    return response.json();
-  })
+  }
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
     .catch((error) => {
       throw error;
     });
@@ -44,6 +60,8 @@ export const getGenres = async () => {
       throw error;
     });
 };
+
+
 
 export const getMovieImages = ({ queryKey }) => {
   const [, idPart] = queryKey;
@@ -116,3 +134,18 @@ export const getMovieCredits = (id) => {
       throw error;
     });
 };
+
+export const getPopularMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&sort_by=vote_average.desc&page=2`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  })
+    .catch((error) => {
+      throw error;
+    });
+};
+
