@@ -47,7 +47,8 @@
 
 1. Update the 'filterMoviesCard' component to add a new textFields and a form control for filtering year and rating.Here I move the 'handleChange' function into templateMovieListPage.js. The state of all filters (including year and score) is passed in by props, as is the onUserInput function. They will be called when the user changes the filter. So FilterMoviesCard component is responsible for displaying only filter UI, and inform the templateMovieListPage/index js filter condition changes.
 
-1. Update 'templateMovieListPage.js'. Add the corresponding filter conditions
+1. Update 'templateMovieListPage.js'. Add the corresponding filter conditions for filtering releaseYear and selectedRating.
+Update the handleChange function, which needs to be able to update the state of these new filters.
 
 1. Update 'homePage.js' to process the filterMoviesCard input and update the status. UseQuery can correctly call the 'getMovies' function from 'tmdb-api.js'
 
