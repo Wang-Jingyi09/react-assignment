@@ -31,7 +31,25 @@
 
 ## add a static endpoint /movie/popular
  
- 1. 
+ 1. Define a API functioin in src/api/tmdb-api.js to get the list of movies sorted from highest to lowest rating.
+
+ 1. Use useQuery hook to call 'getPopularMovies' function, and handle the returned data in pages/popularMoviesPage.js
+
+ 1. Add a route in src/index.js to point to the new popular movie page.
+
+ 1. Update the site header to create a new page to display popular moves list sorted by rating.
+
+ 1. I meet a problem that is the page is not sorted by rating and looks the same as the home page. Then I find that the static endpoint '/movie/popular' may not support the 'sort_by' parameter, and it just sorts the movies by default order. Finally, I use '/discover/movie' endpoint to show the page.
+
+## Advanced search and filter by release year and rating.
+
+1. Update the API function 'getMovies' in tmdb-api.js to accept the year and rating parameters, setting filter ranges and build the API request URL, dynamically concatenating the query string accordingly.
+
+1. Update the 'filterMoviesCard' component to add a new textFields and a form control for filtering year and rating.Here I move the 'handleChange' function into templateMovieListPage.js. The state of all filters (including year and score) is passed in by props, as is the onUserInput function. They will be called when the user changes the filter. So FilterMoviesCard component is responsible for displaying only filter UI, and inform the templateMovieListPage/index js filter condition changes.
+
+1. Update 'templateMovieListPage.js'. Add the corresponding filter conditions
+
+1. Update 'homePage.js' to process the filterMoviesCard input and update the status. UseQuery can correctly call the 'getMovies' function from 'tmdb-api.js'
 
 
 

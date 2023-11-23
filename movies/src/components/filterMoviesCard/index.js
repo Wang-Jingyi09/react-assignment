@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
-import React, { useState } from "react";
+import React from "react";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
@@ -21,11 +21,10 @@ const formControl =
   backgroundColor: "rgb(255, 255, 255)"
 };
 
-export default function FilterMoviesCard(props) {
+export default function FilterMoviesCard({ onUserInput, titleFilter, genreFilter, yearFilter, ratingFilter }) {
 
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
-  const [releaseYear, setReleaseYear] = useState('');
-  const [selectedRating, setSelectedRating] = useState('');
+  
 
   if (isLoading) {
     return <Spinner />;
@@ -39,33 +38,32 @@ export default function FilterMoviesCard(props) {
     genres.unshift({ id: "0", name: "All" });
   }
 
-  const handleChange = (e, type, value) => {
-    e.preventDefault();
-    props.onUserInput(type, value); // NEW
-  };
+  // const handleChange = (e, type, value) => {
+  //   e.preventDefault();
+  //   props.onUserInput(type, value); // NEW
+  // };
 
-  const handleTextChange = (e) => {
-    handleChange(e, "name", e.target.value);
-  };
+  // const handleTextChange = (e) => {
+  //   handleChange(e, "name", e.target.value);
+  // };
 
-  const handleGenreChange = (e) => {
-    handleChange(e, "genre", e.target.value);
-  };
+  // const handleGenreChange = (e) => {
+  //   handleChange(e, "genre", e.target.value);
+  // };
 
-  const handleYearChange = (e) => {
-    const yearValue = e.target.value;
-    // setReleaseYear(e.target.value);
-    if (yearValue >= 1980 && yearValue <= 2023) {
-      setReleaseYear(yearValue);
-      props.onUserInput("year", yearValue);
-    }
-    handleChange(e, "year", e.target.value);
-  };
+  // const handleYearChange = (e) => {
+  //   const yearValue = e.target.value;
+  //   if (yearValue >= 1980 && yearValue <= 2023) {
+  //     setReleaseYear(yearValue);
+  //     props.onUserInput("year", yearValue);
+  //   }
+  //   // handleChange(e, "year", e.target.value);
+  // };
 
-  const handleRatingChange = (e) => {
-    setSelectedRating(e.target.value);
-    handleChange(e, "rating", e.target.value);
-  };
+  // const handleRatingChange = (e) => {
+  //   setSelectedRating(e.target.value);
+  //   handleChange(e, "rating", e.target.value);
+  // };
 
 
 
@@ -87,8 +85,8 @@ export default function FilterMoviesCard(props) {
           label="Search field"
           type="search"
           variant="filled"
-          value={props.titleFilter}
-          onChange={handleTextChange}
+          value={titleFilter}
+          onChange={(e) => onUserInput("name", e.target.value)}
         />
 
 
@@ -98,19 +96,11 @@ export default function FilterMoviesCard(props) {
           label="Search Year"
           type="number"
           variant="filled"
-          value={releaseYear}
-          onChange={handleYearChange}
+          value={yearFilter}
+          onChange={(e) => onUserInput("year", e.target.value)}
           inputProps={{ min: 1980, max: 2023 }}
         />
-        {/* <TextField
-          sx={{ ...formControl }}
-          id="rating-search"
-          label="Search Rating"
-          type="number"
-          variant="filled"
-          value={selectedRating}
-          onChange={handleRatingChange}
-        /> */}
+
 
         <FormControl sx={{ ...formControl }}>
           <InputLabel id="genre-label">Genre</InputLabel>
@@ -118,8 +108,8 @@ export default function FilterMoviesCard(props) {
             labelId="genre-label"
             id="genre-select"
             defaultValue=""
-            value={props.genreFilter}
-            onChange={handleGenreChange}
+            value={genreFilter}
+            onChange={(e) => onUserInput("genre", e.target.value)}
           >
             {genres.map((genre) => {
               return (
@@ -128,16 +118,16 @@ export default function FilterMoviesCard(props) {
                 </MenuItem>
               );
             })}
-          </Select>
+          </Select> 
         </FormControl>
 
-        <FormControl>
+        <FormControl sx={{ ...formControl }}>
           <InputLabel id="rating-select-label">Rating</InputLabel>
           <Select
             labelId="rating-select-label"
             id="rating-search"
-            value={selectedRating}
-            onChange={handleRatingChange}
+            value={ratingFilter}
+            onChange={(e) => onUserInput("rating", e.target.value)}
           >
             <MenuItem value="9+">9 and above</MenuItem>
             <MenuItem value="8-9">8 - 9</MenuItem>
