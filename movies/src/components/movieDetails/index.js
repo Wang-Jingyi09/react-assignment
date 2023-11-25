@@ -89,7 +89,11 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           </Typography>
           <ul>
             {credits.cast.map(member => (
-              <li key={member.cast_id}>{member.name} as {member.character}</li>
+              <li key={member.cast_id}>
+                <a href={`https://www.themoviedb.org/person/${member.id}`} target="_blank" rel="noopener noreferrer">
+                  {member.name} as {member.character}
+                </a>
+              </li>
             ))}
           </ul>
           {/* <Typography variant="h5" component="h2">
@@ -103,23 +107,23 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         </>
       )}
 
-          <Fab
-            color="secondary"
-            variant="extended"
-            onClick={() => setDrawerOpen(true)}
-            sx={{
-              position: 'fixed',
-              bottom: '1em',
-              right: '1em'
-            }}
-          >
-            <NavigationIcon />
-            Reviews
-          </Fab>
-          <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-            <MovieReviews movie={movie} />
-          </Drawer>
-        </>
-      );
+      <Fab
+        color="secondary"
+        variant="extended"
+        onClick={() => setDrawerOpen(true)}
+        sx={{
+          position: 'fixed',
+          bottom: '1em',
+          right: '1em'
+        }}
+      >
+        <NavigationIcon />
+        Reviews
+      </Fab>
+      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <MovieReviews movie={movie} />
+      </Drawer>
+    </>
+  );
 };
-      export default MovieDetails;
+export default MovieDetails;

@@ -104,6 +104,7 @@ export const getMovieReviews = (id) => {
       return json.results;
     });
 };
+
 //The first endpoint updated: getLatestMovies
 export const getLatestMovies = () => {
   const currentDate = new Date().toISOString().split('T')[0];

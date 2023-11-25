@@ -26,7 +26,7 @@
 
 1. use 'useParams' hook from Router to access the dynamic parameter id.
 
-1. Fetch data of movie cast message through API calling with 'useQuery' hook form React Query.
+1. Fetch data of movie cast message through API calling with 'useQuery' hook in movieCreditsPage.js to form React Query.
 
 
 ## add a static endpoint /movie/popular
@@ -40,6 +40,8 @@
  1. Update the site header to create a new page to display popular moves list sorted by rating.
 
  1. I meet a problem that is the page is not sorted by rating and looks the same as the home page. Then I find that the static endpoint '/movie/popular' may not support the 'sort_by' parameter, and it just sorts the movies by default order. Finally, I use '/discover/movie' endpoint to show the page.
+
+ 1. There may be some movies that do not show movie posters, ratings or reviews. This is because TMDB data is not updated in a timely manner.
 
 ## Advanced search and filter by release year and rating.
 
@@ -69,6 +71,7 @@ Update the handleChange function, which needs to be able to update the state of 
 
 1. Modify the UpcomingMoviesPage component in upcomingMoviesPage.js to add paging function. Add a pagination control ( import Pagination from '@mui/material/Pagination';) to allow the user to change the page number. Add 'useState' to track the current page.
 
-    
 
+## Movie details page contains links to the actor's  individual information.
 
+1. When users click on an actor's name or character, they are redirected to that actor's TMDB page. Wrap the entire "{member.name} as {member.character}" string with the <a> tag and set the href attribute to the URL pointing to the actor's information page. 'target="_blank"' and 'rel="noopener noreferrer"' are used to ensure open security of links.
