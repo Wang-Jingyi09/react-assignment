@@ -63,6 +63,11 @@ Update the handleChange function, which needs to be able to update the state of 
 
 
 
+## Pagination realization for upComing page.
+
+1. Update getupComingMovies function in tmdb-api.js to receive a parameter 'page' with a default value '1' to build the requested URL. The default value of 1 means that if no page number is provided, the function will default to requesting data for the first page.
+
+1. Modify the UpcomingMoviesPage component in upcomingMoviesPage.js to add paging function. Add a pagination control ( import Pagination from '@mui/material/Pagination';) to allow the user to change the page number. Add 'useState' to track the current page.
 
     
 
