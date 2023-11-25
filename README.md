@@ -1,7 +1,70 @@
-# react-assignment
+# Assignment1 - ReactJS app
+
+Name: Jingyi Wang
 
 
-## /discover/movie static endpoint
+## Overview
+
+For extending the app, I realize three static endpoints, two parameterised endpoints, and links from movie detail pages to actor individual information pages.
+
+For extending the functionality, caching with react-query is done on all static endpoints and parameterised endpoints. New filtering options(rating and release year) are added. Sorting and searching features and added(sorted by rating and release time).
+
+For additional features, a new material UI components are included(movieRecommendations componenet). Responsive UI layout are realized. Pagination feature in upcoming page is integrated.
+
+For documentation, I believe that I have a comprehensive readme file and a video with voiceover.
+
+
+## Features.
+
++ Modify 'getMovies' API function to accept the year and rating parameters, setting filter ranges and build the API request URL, dynamically concatenating the query string accordingly.
+
++ The <Typography> layout component and Grid component of Material-UI are used for realizing a responsive layout.
+
++ When users click on an actor's name or character, they are redirected to that actor's TMDB page.
+
++ 'target="_blank"' and 'rel="noopener noreferrer"' are used to ensure open security of links.
+
++ Pagination realization for upComing page.
+
+
+
+## Setup requirements
+
++  Setup remote Github repo.
+
++ Create a local repository and connect to Github
+
++ npm init to build node_modules.
+
+
+## API endpoints.
+
++ Discover the latest movie list - /discover/movie (sort_by=release_date.desc&release_date.lte=${currentDate})
+
++ Discover top rated movie list - /movie/top_rated
+
++ Acquire trending movie list daily - /trending/movie/day
+
++ Show credits in movie details page - movie/:id/credits
+
++ Discover recommendation movies = movie/:id/recommendations
+
+
+## Routing
+
++ /movies/latest - displays latest movie page sorted by release time.
+
++ /movies/:id/credits - lists actors in movie details page
+
++ /movies/top_rated - displays top rated movie list
+
++ /movies/trending - displays daily movie trend
+
+
+
+## Below are all details of each steps I tried to expend the app, including some problems I met and how I solved them.
+
+### /discover/movie static endpoint
 
 1.  Define an API call function of a new static endpoint /lastest in tmdb-api.js
 
@@ -18,7 +81,7 @@
 
 
 
-## add parameterised endpoint /movie/:id/credits
+### add parameterised endpoint /movie/:id/credits
 
 1. Define the API Function to make a fetch request to TMDB API with an identifier id.
 
@@ -31,7 +94,7 @@
 1. Use <Typography> layout component in 'movieDetails/index.js' to realize responsive UI layout.
 
 
-## add a static endpoint /movie/top_rated
+### add a static endpoint /movie/top_rated
  
  1. Define a API functioin in src/api/tmdb-api.js to get the list of movies sorted from highest to lowest rating.
 
@@ -45,7 +108,7 @@
 
  1. There may be some movies that do not show movie posters, ratings or reviews. This is because TMDB data is not updated in a timely manner.
 
-## Advanced search and filter by release year and rating.
+### Advanced search and filter by release year and rating.
 
 1. Update the API function 'getMovies' in tmdb-api.js to accept the year and rating parameters, setting filter ranges and build the API request URL, dynamically concatenating the query string accordingly.
 
@@ -57,28 +120,28 @@ Update the handleChange function, which needs to be able to update the state of 
 1. Update 'homePage.js' to process the filterMoviesCard input and update the status. UseQuery can correctly call the 'getMovies' function from 'tmdb-api.js'
 
 
-## add a new endpoint /trending
+### add a new endpoint /trending
 
-1. Add a new API function of a static endpoint /trending/movie/week to acquire trending movie list weekly.
+1. Add a new API function of a static endpoint /trending/movie/week to acquire trending movie list daily.
 
-1. Use the useQuery hook and the getTrendingMovies function to request trending movie data from the API. When the component is re-rendered, the data is updated weekly according to what I set in 'staleTime'. Handling load state and error state. If the request is in progress, it displays a load indicator ('Spinner'). If the request goes wrong, it displays an error message.The obtained movie data is stored in the movies variable and passed to the MovieListPageTemplate component for rendering.For each movie, I provide two actions: Add to 'Favorites' and add to 'MustWatch'. Use 'localStorage' to store movies that are marked as must watch.
+1. Use the useQuery hook and the getTrendingMovies function to request trending movie data from the API. When the component is re-rendered, the data is updated every day according to what I set in 'staleTime'. Handling load state and error state. If the request is in progress, it displays a load indicator ('Spinner'). If the request goes wrong, it displays an error message.The obtained movie data is stored in the movies variable and passed to the MovieListPageTemplate component for rendering.For each movie, I provide two actions: Add to 'Favorites' and add to 'MustWatch'. Use 'localStorage' to store movies that are marked as must watch.
 
 1. Add a route in src/index.js to point to the new trending movie page.
 
 
 
-## Pagination realization for upComing page.
+### Pagination realization for upComing page.
 
 1. Update getupComingMovies function in tmdb-api.js to receive a parameter 'page' with a default value '1' to build the requested URL. The default value of 1 means that if no page number is provided, the function will default to requesting data for the first page.
 
 1. Modify the UpcomingMoviesPage component in upcomingMoviesPage.js to add paging function. Add a pagination control ( import Pagination from '@mui/material/Pagination';) to allow the user to change the page number. Add 'useState' to track the current page.
 
 
-## Movie details page contains links to the actor's  individual information.
+### Movie details page contains links to the actor's  individual information.
 
 1. When users click on an actor's name or character, they are redirected to that actor's TMDB page. Wrap the entire "{member.name} as {member.character}" string with the <a> tag and set the href attribute to the URL pointing to the actor's information page. 'target="_blank"' and 'rel="noopener noreferrer"' are used to ensure open security of links.
 
-## Add a new parametered endpoint /movie/:id/recommendations
+### Add a new parametered endpoint /movie/:id/recommendations
 
 1. Add an API function 'getMovieRecommendations' in tmdb-api.js. The recommendations for movies are based on the movie the user is currently viewing.
 
