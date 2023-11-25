@@ -53,6 +53,15 @@ Update the handleChange function, which needs to be able to update the state of 
 1. Update 'homePage.js' to process the filterMoviesCard input and update the status. UseQuery can correctly call the 'getMovies' function from 'tmdb-api.js'
 
 
+## add a new endpoint /trending
+
+1. Add a new API function of a static endpoint /trending/movie/week to acquire trending movie list weekly.
+
+1. Use the useQuery hook and the getTrendingMovies function to request trending movie data from the API. When the component is re-rendered, the data is updated weekly according to what I set in 'staleTime'. Handling load state and error state. If the request is in progress, it displays a load indicator ('Spinner'). If the request goes wrong, it displays an error message.The obtained movie data is stored in the movies variable and passed to the MovieListPageTemplate component for rendering.For each movie, I provide two actions: Add to 'Favorites' and add to 'MustWatch'. Use 'localStorage' to store movies that are marked as must watch.
+
+1. Add a route in src/index.js to point to the new trending movie page.
+
+
 
 
     

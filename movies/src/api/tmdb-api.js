@@ -152,7 +152,7 @@ export const getPopularMovies = () => {
 //Acquire the current most popular movies
 export const getTrendingMovies = (timeWindow) => {
   return fetch(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_KEY}`
   )
   .then(response => {
     if (!response.ok) {
