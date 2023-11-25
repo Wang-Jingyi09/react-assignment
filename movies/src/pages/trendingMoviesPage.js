@@ -8,7 +8,7 @@ import AddToMustWatch from "../components/cardIcons/addToMustWatch";
 
 const TrendingMoviesPage = () => {
   const { data, isLoading, isError, error } = useQuery('trendingMovies', getTrendingMovies, {
-    staleTime: 24 * 60 * 60 * 1000, 
+    staleTime: 24 * 60 * 60 * 1000,
     keepPreviousData: true
   });
 

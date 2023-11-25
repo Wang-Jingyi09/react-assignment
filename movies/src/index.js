@@ -17,7 +17,6 @@ import MovieCreditsPage from './pages/movieCreditsPage';
 import PopularMoviesPage from './pages/popularMoviesPage';
 import TrendingMoviesPage from "./pages/trendingMoviesPage";
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,18 +35,17 @@ const App = () => {
           <Routes>
             <Route path="/reviews/form" element={<AddMovieReviewPage />} />
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} /> 
+            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
             <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route exact path="/mustWatch" component={MustWatchMoviesPage} />
-            
-            <Route path="/movies/latest" element={<LatestMoviesPage />} /> 
-            <Route path="/movies/:id/credits" element={<MovieCreditsPage />} />
-            <Route path="/movies/popular" element={<PopularMoviesPage />} /> 
-            <Route path="/movies/trending" element={<TrendingMoviesPage />} /> 
 
+            <Route path="/movies/latest" element={<LatestMoviesPage />} />
+            <Route path="/movies/:id/credits" element={<MovieCreditsPage />} />
+            <Route path="/movies/popular" element={<PopularMoviesPage />} />
+            <Route path="/movies/trending" element={<TrendingMoviesPage />} />
 
           </Routes>
         </MoviesContextProvider>

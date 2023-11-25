@@ -5,8 +5,10 @@ import PageTemplate from "../components/templateMoviePage";
 import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
+import MovieRecommendations from "../components/movieRecommendations"; // Import the new component
 
-const MoviePage = (props) => {
+
+const MoviePage = () => {
   const { id } = useParams();
   const { data: movie, error, isLoading, isError } = useQuery(
     ["movie", { id: id }],
@@ -27,6 +29,8 @@ const MoviePage = (props) => {
         <>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
+            <MovieRecommendations id={id} /> 
+
           </PageTemplate>
         </>
       ) : (

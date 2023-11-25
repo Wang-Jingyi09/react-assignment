@@ -28,6 +28,8 @@
 
 1. Fetch data of movie cast message through API calling with 'useQuery' hook in movieCreditsPage.js to form React Query.
 
+1. Use <Typography> layout component in 'movieDetails/index.js' to realize responsive UI layout.
+
 
 ## add a static endpoint /movie/popular
  
@@ -50,7 +52,7 @@
 1. Update the 'filterMoviesCard' component to add a new textFields and a form control for filtering year and rating.Here I move the 'handleChange' function into templateMovieListPage.js. The state of all filters (including year and score) is passed in by props, as is the onUserInput function. They will be called when the user changes the filter. So FilterMoviesCard component is responsible for displaying only filter UI, and inform the templateMovieListPage/index js filter condition changes.
 
 1. Update 'templateMovieListPage.js'. Add the corresponding filter conditions for filtering releaseYear and selectedRating.
-Update the handleChange function, which needs to be able to update the state of these new filters.
+Update the handleChange function, which needs to be able to update the state of these new filters. The Grid component of Material-UI is used for building a responsive layout. By setting different xs, sm, md, lg, and xl properties, we can specify the proportion of space that a component should occupy at different breakpoints.
 
 1. Update 'homePage.js' to process the filterMoviesCard input and update the status. UseQuery can correctly call the 'getMovies' function from 'tmdb-api.js'
 
@@ -75,3 +77,14 @@ Update the handleChange function, which needs to be able to update the state of 
 ## Movie details page contains links to the actor's  individual information.
 
 1. When users click on an actor's name or character, they are redirected to that actor's TMDB page. Wrap the entire "{member.name} as {member.character}" string with the <a> tag and set the href attribute to the URL pointing to the actor's information page. 'target="_blank"' and 'rel="noopener noreferrer"' are used to ensure open security of links.
+
+## Add a new parametered endpoint /movie/:id/recommendations
+
+1. Add an API function 'getMovieRecommendations' in tmdb-api.js. The recommendations for movies are based on the movie the user is currently viewing.
+
+1. Create a 'movieRecommendations' component, using 'getMovieRecommendations' function and 'useQuery' hook to manage fetching, loading states, and error handling.
+
+1. Update 'pages/movieDetailsPage.js to integrate the 'movieRecommendations' component within it. It uses the movie id from URL parameters to fetch movie details and pass the id to 'MovieRecommendations' component for fetching related movie recommendations.
+
+1. After 'npm start', the web server shows an error: 'action is not a function'. Therefore, I check the action function in components/movieCard/index.js. There might be a call to action() without verifying if it's a function or not. Then, I modify this component to handle the absence of 'action':{action && typeof action === 'function' ? action(movie) : null}
+
