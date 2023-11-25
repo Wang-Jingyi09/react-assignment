@@ -31,17 +31,17 @@
 1. Use <Typography> layout component in 'movieDetails/index.js' to realize responsive UI layout.
 
 
-## add a static endpoint /movie/popular
+## add a static endpoint /movie/top_rated
  
  1. Define a API functioin in src/api/tmdb-api.js to get the list of movies sorted from highest to lowest rating.
 
- 1. Use useQuery hook to call 'getPopularMovies' function, and handle the returned data in pages/popularMoviesPage.js
+ 1. Use useQuery hook to call 'getTopRatedMovies' function, and handle the returned data in pages/topRatedMoviesPage.js.
 
- 1. Add a route in src/index.js to point to the new popular movie page.
+ 1. Add a route in src/index.js to point to that  top rated movie page.
 
- 1. Update the site header to create a new page to display popular moves list sorted by rating.
+ 1. Update the site header to create a new page to display top rated moves list.
 
- 1. I meet a problem that is the page is not sorted by rating and looks the same as the home page. Then I find that the static endpoint '/movie/popular' may not support the 'sort_by' parameter, and it just sorts the movies by default order. Finally, I use '/discover/movie' endpoint to show the page.
+ 1. Initially, I use the static endpoint '/movie/popular' to display the movie list page sorted from highest rating to lowest. However, I meet a problem that is the page is not sorted by rating and looks the same as the home page. Then I find that the static endpoint '/movie/popular' may not support the 'sort_by' parameter, and it just sorts the movies by default order. Then, I use '/discover/top_rated' endpoint to show the page. This static endpoint from TMDB API is typically curated based on overall ratings and reviews from users, but it may not be strictly sorted by the highest ratings (like 10/10). Instead, it often factors in a combination of the average rating and the number of ratings a movie has received, which can provide a more balanced view of overall popularity and acclaim.
 
  1. There may be some movies that do not show movie posters, ratings or reviews. This is because TMDB data is not updated in a timely manner.
 
